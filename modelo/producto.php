@@ -1,12 +1,12 @@
 <?php
     class Producto{
-        private string $id;
+        private string $codigo;
         private string $nombre;
         private int $stock;
         private float $valor_unitario;
 
-        public function __construct(string $id,string $nombre,int $stock,float $valor_unitario){
-            $this->id = $id;
+        public function __construct(string $codigo,string $nombre,int $stock,float $valor_unitario){
+            $this->codigo = $codigo;
             $this->nombre = $nombre;
             $this->stock = $stock;
             $this->valor_unitario = $valor_unitario;

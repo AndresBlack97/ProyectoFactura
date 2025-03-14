@@ -1,5 +1,5 @@
 <?php
-class Vendedor extends Persona {
+    class Vendedor extends Persona {
     private int $carne;
     private string $direccion;
 

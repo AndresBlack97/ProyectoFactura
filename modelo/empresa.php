@@ -1,5 +1,5 @@
 <?php
-class Empresa {
+    class Empresa {
     private string $codigo;
     private string $nombre;
 
@@ -8,7 +8,6 @@ class Empresa {
         $this->nombre = $nombre;
     }
 
-    // Getters y Setters
     public function getCodigo(): string { return $this->codigo; }
     public function setCodigo(string $codigo): void { $this->codigo = $codigo; }
 

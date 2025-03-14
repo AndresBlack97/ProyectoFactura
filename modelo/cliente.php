@@ -1,5 +1,5 @@
 <?php
-class Cliente extends Persona {
+    class Cliente extends Persona {
     private float $credito;
 
     public function __construct(string $codigo, string $email, string $nombre, string $telefono, float $credito) {
