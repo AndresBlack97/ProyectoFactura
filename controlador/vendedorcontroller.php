@@ -17,10 +17,10 @@ class VendedorController {
     }
 
     // Método para crear un vendedor
-    public function create($codigo, $email, $nombre, $telefono, $carne, $direccion) {
-        $this->vendedor = new Vendedor($codigo, $email, $nombre, $telefono, $carne, $direccion);
+    public function create($codigo_vendedor, $email, $nombre, $telefono, $carne, $direccion) {
+        $this->vendedor = new Vendedor($codigo_vendedor, $email, $nombre, $telefono, $carne, $direccion);
 
-        $query = "INSERT INTO vendedor (codigo, email, nombre, telefono, carne, direccion) VALUES (:codigo, :email, :nombre, :telefono, :carne, :direccion)";
+        $query = "INSERT INTO vendedor (codigo_vendedor, email, nombre, telefono, carne, direccion) VALUES (:codigo_vendedor, :email, :nombre, :telefono, :carne, :direccion)";
         $stmt = $this->db->prepare($query);
 
         // Limpiar y vincular los datos
@@ -31,12 +31,12 @@ class VendedorController {
         $this->vendedor->setCarne(htmlspecialchars(strip_tags($this->vendedor->getCarne())));
         $this->vendedor->setDireccion(htmlspecialchars(strip_tags($this->vendedor->getDireccion())));
 
-        $stmt->bindParam(":codigo", $this->vendedor->getCodigo());
-        $stmt->bindParam(":email", $this->vendedor->getEmail());
-        $stmt->bindParam(":nombre", $this->vendedor->getNombre());
-        $stmt->bindParam(":telefono", $this->vendedor->getTelefono());
-        $stmt->bindParam(":carne", $this->vendedor->getCarne());
-        $stmt->bindParam(":direccion", $this->vendedor->getDireccion());
+        $stmt->bindValue(":codigo_vendedor", $this->vendedor->getCodigo());
+        $stmt->bindValue(":email", $this->vendedor->getEmail());
+        $stmt->bindValue(":nombre", $this->vendedor->getNombre());
+        $stmt->bindValue(":telefono", $this->vendedor->getTelefono());
+        $stmt->bindValue(":carne", $this->vendedor->getCarne());
+        $stmt->bindValue(":direccion", $this->vendedor->getDireccion());
 
         if ($stmt->execute()) {
             return "Vendedor creado correctamente.";
@@ -47,7 +47,7 @@ class VendedorController {
 
     // Método para leer un vendedor por código
     public function readOne($codigo) {
-        $query = "SELECT * FROM vendedor WHERE codigo = ? LIMIT 1";
+        $query = "SELECT * FROM vendedor WHERE codigo_vendedor = ? LIMIT 1";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(1, $codigo);
         $stmt->execute();
@@ -56,7 +56,7 @@ class VendedorController {
 
         if ($row) {
             $this->vendedor = new Vendedor(
-                $row['codigo'],
+                $row['codigo_vendedor'],
                 $row['email'],
                 $row['nombre'],
                 $row['telefono'],
@@ -70,10 +70,10 @@ class VendedorController {
     }
 
     // Método para actualizar un vendedor
-    public function update($codigo, $email, $nombre, $telefono, $carne, $direccion) {
-        $this->vendedor = new Vendedor($codigo, $email, $nombre, $telefono, $carne, $direccion);
+    public function update($codigo_vendedor, $email, $nombre, $telefono, $carne, $direccion) {
+        $this->vendedor = new Vendedor($codigo_vendedor, $email, $nombre, $telefono, $carne, $direccion);
 
-        $query = "UPDATE vendedor SET email = :email, nombre = :nombre, telefono = :telefono, carne = :carne, direccion = :direccion WHERE codigo = :codigo";
+        $query = "UPDATE vendedor SET email = :email, nombre = :nombre, telefono = :telefono, carne = :carne, direccion = :direccion WHERE codigo_vendedor = :codigo_vendedor";
         $stmt = $this->db->prepare($query);
 
         // Limpiar y vincular los datos
@@ -84,12 +84,12 @@ class VendedorController {
         $this->vendedor->setDireccion(htmlspecialchars(strip_tags($this->vendedor->getDireccion())));
         $this->vendedor->setCodigo(htmlspecialchars(strip_tags($this->vendedor->getCodigo())));
 
-        $stmt->bindParam(":email", $this->vendedor->getEmail());
-        $stmt->bindParam(":nombre", $this->vendedor->getNombre());
-        $stmt->bindParam(":telefono", $this->vendedor->getTelefono());
-        $stmt->bindParam(":carne", $this->vendedor->getCarne());
-        $stmt->bindParam(":direccion", $this->vendedor->getDireccion());
-        $stmt->bindParam(":codigo", $this->vendedor->getCodigo());
+        $stmt->bindValue(":email", $this->vendedor->getEmail());
+        $stmt->bindValue(":nombre", $this->vendedor->getNombre());
+        $stmt->bindValue(":telefono", $this->vendedor->getTelefono());
+        $stmt->bindValue(":carne", $this->vendedor->getCarne());
+        $stmt->bindValue(":direccion", $this->vendedor->getDireccion());
+        $stmt->bindValue(":codigo_vendedor", $this->vendedor->getCodigo());
 
         if ($stmt->execute()) {
             return "Vendedor actualizado correctamente.";
@@ -100,7 +100,7 @@ class VendedorController {
 
     // Método para eliminar un vendedor
     public function delete($codigo) {
-        $query = "DELETE FROM vendedor WHERE codigo = ?";
+        $query = "DELETE FROM vendedor WHERE codigo_vendedor = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(1, $codigo);
 
@@ -120,7 +120,7 @@ class VendedorController {
         $vendedores = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $vendedor = new Vendedor(
-                $row['codigo'],
+                $row['codigo_vendedor'],
                 $row['email'],
                 $row['nombre'],
                 $row['telefono'],
