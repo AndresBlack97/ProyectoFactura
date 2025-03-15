@@ -20,10 +20,14 @@ class EmpresaController {
         $this->empresa->codigo_empresa = $codigo_empresa;
         $this->empresa->nombre = $nombre;
 
-        if ($this->empresa->create()) {
-            return "Empresa creada correctamente.";
-        } else {
-            return "Error al crear la empresa.";
+        try {
+            if ($this->empresa->create()) {
+                return "Empresa creada correctamente.";
+            } else {
+                return "Error al crear la empresa.";
+            }
+        } catch (Exception $e) {
+            return $e->getMessage(); // Mostrar el mensaje de error
         }
     }
 
@@ -36,6 +40,29 @@ class EmpresaController {
             return $this->empresa;
         } else {
             return "Empresa no encontrada.";
+        }
+    }
+
+    // Método para actualizar una empresa
+    public function update($codigo_empresa, $nombre) {
+        $this->empresa->codigo_empresa = $codigo_empresa;
+        $this->empresa->nombre = $nombre;
+
+        if ($this->empresa->update()) {
+            return "Empresa actualizada correctamente.";
+        } else {
+            return "Error al actualizar la empresa.";
+        }
+    }
+
+    // Método para eliminar una empresa
+    public function delete($codigo_empresa) {
+        $this->empresa->codigo_empresa = $codigo_empresa;
+
+        if ($this->empresa->delete()) {
+            return "Empresa eliminada correctamente.";
+        } else {
+            return "Error al eliminar la empresa.";
         }
     }
 
