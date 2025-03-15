@@ -1,7 +1,7 @@
 
 <?php
-require_once 'modelo/Cliente.php';
-require_once 'config/Database.php';
+require_once __DIR__ . '/../modelo/cliente.php';
+require_once __DIR__ . '/../config/Database.php';
 
 class ClienteController {
     private $db;
@@ -68,5 +68,25 @@ class ClienteController {
             return "Error al eliminar el cliente.";
         }
     }
+
+    // controlador/ClienteController.php
+    public function readAll() {
+    $query = "SELECT * FROM cliente";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+
+    $clientes = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $cliente = new Cliente($this->db);
+        $cliente->codigo_cliente = $row['codigo_cliente'];
+        $cliente->email = $row['email'];
+        $cliente->nombre = $row['nombre'];
+        $cliente->telefono = $row['telefono'];
+        $cliente->credito = $row['credito'];
+        $clientes[] = $cliente;
+    }
+
+    return $clientes;
+}
 }
 ?>
