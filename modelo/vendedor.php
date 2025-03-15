@@ -1,4 +1,6 @@
 <?php
+    require_once __DIR__ . '/Persona.php'; // Incluye la clase Persona
+
     class Vendedor extends Persona {
     private int $carne;
     private string $direccion;
@@ -8,7 +10,7 @@
         $this->carne = $carne;
         $this->direccion = $direccion;
     }
-
+    
     public function getCarne(): int { return $this->carne; }
     public function setCarne(int $carne): void { $this->carne = $carne; }
 
